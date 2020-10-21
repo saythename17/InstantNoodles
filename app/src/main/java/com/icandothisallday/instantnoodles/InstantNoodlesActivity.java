@@ -37,7 +37,7 @@ public class InstantNoodlesActivity extends AppCompatActivity {
     SeekBar tempProgress;
     CountDownTimer timer;
     long baseTime;
-    int checkSecond;
+    int seconds, minutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +112,7 @@ public class InstantNoodlesActivity extends AppCompatActivity {
             long now=SystemClock.elapsedRealtime();
             elapsedTime.setText(timeFormat(now-baseTime));
 
-            if(checkSecond!=0 && checkSecond%60==0){
+            if(minutes!=0 && seconds %60==0){
                 Animation animation= AnimationUtils.loadAnimation(getBaseContext(),
                         R.anim.alpha);
                 animation.setAnimationListener(new Animation.AnimationListener() {
@@ -159,10 +159,10 @@ public class InstantNoodlesActivity extends AppCompatActivity {
 
     String timeFormat(long time){
         int start_sec = (int) (time/1000);
-        int minutes = start_sec/60;
-        checkSecond = start_sec%60;
+        minutes = start_sec/60;
+        seconds = start_sec%60;
         long millis = (time/10)%100;
-        return String.format("%02d:%02d:%02d",minutes,checkSecond,millis);
+        return String.format("%02d:%02d:%02d",minutes, seconds,millis);
     }
 
     View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
